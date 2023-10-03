@@ -30,7 +30,7 @@ DevContainerを利用したCOBOL言語研修用のテンプレートリポジト
 1. ターミナル(Ctrl + Shift + @) を開き、以下のコマンドを実行する。
 
 ``` sh
-sudo .envbuildr/builder/build.sh
+sudo .envbuilder/builder/build.sh
 ```
 
 ## License

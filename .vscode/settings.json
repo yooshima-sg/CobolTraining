@@ -1,0 +1,14 @@
+{
+    "[COBOL]": {
+        "files.encoding": "shiftjis",
+    },
+    "workbench.editor.showTabs": true,
+    "coboleditor.copybookdirs": [
+        "cpylib",
+        "CPYLIB",
+        "copylib",
+        "COPYLIB",
+        "copy",
+        "COPY"
+    ]
+}

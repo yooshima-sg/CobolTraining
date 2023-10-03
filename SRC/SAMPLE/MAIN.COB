@@ -1,6 +1,16 @@
        IDENTIFICATION DIVISION.
        PROGRAM-ID. SAMPLE.
        
-       PROCEDURE DIVISION.
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
        COPY SAMPLE.
-       DISPLAY "HELLO, COBOL.".
+
+       PROCEDURE DIVISION.
+       MAIN      SECTION.
+           PERFORM DISPMEG.
+       EXT.
+           STOP RUN.
+
+       DISPMEG  SECTION.
+           DISPLAY MSG.
+           EXIT.

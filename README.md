@@ -29,14 +29,6 @@ DevContainerを利用したCOBOL言語研修用のテンプレートリポジト
 3. コマンドパレット(Ctrl + Shift + p)から「開発コンテナ―: コンテナ―で再度開く」を選択
 4. エクスプローラにファイルが表示され、操作できるようになったら準備完了です。
 
-### 初回のみ
-
-1. ターミナル(Ctrl + Shift + @) を開き、以下のコマンドを実行する。
-
-``` sh
-sudo .envbuilder/builder/build.sh
-```
-
 ## License
 
 MIT

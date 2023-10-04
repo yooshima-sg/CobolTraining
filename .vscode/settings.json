@@ -10,5 +10,6 @@
         "COPYLIB",
         "copy",
         "COPY"
-    ]
+    ],
+    "coboleditor.format_constants_to_uppercase": true
 }

@@ -1,17 +1,7 @@
        IDENTIFICATION DIVISION.
        PROGRAM-ID. SAMPLE.
        
-       ENVIRONMENT DIVISION.
-       INPUT-OUTPUT SECTION.
-       FILE-CONTROL.
-           SELECT ITF ASSIGN TO ITF-FILE
-              ORGANIZATION IS LINE SEQUENTIAL.
-
        DATA DIVISION.
-       FILE SECTION.
-       FD  ITF.
-       COPY KCBS010P.
-      
        WORKING-STORAGE SECTION.
        COPY SMPLCPY.
 
@@ -21,11 +11,8 @@
            STOP RUN.
 
        INIT SECTION.
-           MOVE SPACE TO KCBS010-P1.
            EXIT.
 
        DISPMEG SECTION.
-           MOVE "20240101" TO KCBS010-P1.SP010-DATE8.
-           DISPLAY KCBS010-P1.SP010-DATE.
            DISPLAY MSG.
            EXIT.

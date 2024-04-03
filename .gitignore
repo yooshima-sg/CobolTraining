@@ -1,0 +1,4 @@
+*.log
+**/BIN
+.envbuilder/**/bin
+.envbuilder/**/REN12??.COB

@@ -1,6 +1,17 @@
-# COBOL言語研修用環境
+# COBOL実習課題回答一例
 
-DevContainerを利用したCOBOL言語研修用のテンプレートリポジトリです。
+システム技研COBOL言語実習課題回答の一例です。
+
+* KJBM010
+* KJBM020
+* KJBM030
+* KJBM040
+* KJBM050
+* KJBM060
+* KUBM010
+* KUBM020
+* KUBM030
+* KUBM040
 
 ## 使用できるツール
 

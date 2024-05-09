@@ -1,0 +1,4 @@
+*** KUBM010 START ***
+*** ITF-CNT =+000000003
+*** OTF-CNT =+000000003
+*** KUBM010  END  ***

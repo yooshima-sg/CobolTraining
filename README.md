@@ -11,6 +11,8 @@
 * KUBM010
 * KUBM020
 * KUBM030
+  * KUBM030A: OpenCOBOL ESQLプリプロセッサを利用したバージョン
+  * KUBM030B: esqlOCプリプロセッサを利用したバージョン
 * KUBM040
 
 ## 使用できるツール

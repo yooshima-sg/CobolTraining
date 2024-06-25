@@ -25,7 +25,7 @@ GNUCOBOL_SRC_URL="https://jaist.dl.sourceforge.net/project/gnucobol/gnucobol/${G
 cd "${SCRIPT_DIR}"
 echo "Start Building : $(date)" >${BUILD_LOG_FILE}
 
-echo "Setup locale ... "
+echo "Generate ja_JP.SJIS locale ... "
 {
     echo "ja_JP.SJIS SHIFT_JIS" >> /etc/locale.gen
     locale-gen

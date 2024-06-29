@@ -1,10 +1,12 @@
        IDENTIFICATION DIVISION.
        PROGRAM-ID. PICTURES.
-      *
+      ****************************************************************
+      * 数値項目がファイルに保存したときの状態を確認するプログラム
+      ****************************************************************
        ENVIRONMENT DIVISION.
        INPUT-OUTPUT SECTION.
        FILE-CONTROL.
-           SELECT OTF-FILE ASSIGN TO EXTERNAL OTF.
+           SELECT OTF-FILE ASSIGN TO OTF.
       *
        DATA DIVISION.
        FILE SECTION.

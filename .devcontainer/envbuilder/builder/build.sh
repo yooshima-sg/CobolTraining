@@ -52,7 +52,7 @@ else
 fi
 echo "Building and installing GnuCOBOL ..."
 mkdir gnucobol
-tar xzf "${BUILD_DIR}/${GNUCOBOL_SRC_PKG}" --strip-components 1 -C gnucobol
+tar xf "${BUILD_DIR}/${GNUCOBOL_SRC_PKG}" --strip-components 1 -C gnucobol
 (
     cd gnucobol
     ./configure

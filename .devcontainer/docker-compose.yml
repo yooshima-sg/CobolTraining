@@ -1,22 +1,27 @@
 services:
   app:
-    build: 
+    build:
       context: .
-      dockerfile: Dockerfile
-    env_file:
-        - .env
+      dockerfile: Dockerfile.devenvironment
+    container_name: coboldevenv
     volumes:
-      - ../..:/workspaces:cached      
+      - ../..:/workspaces:cached
     command: sleep infinity
     network_mode: service:db
 
   db:
-    image: postgres:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.db
+    container_name: coboldevenvdb
     restart: unless-stopped
     volumes:
       - postgres-data:/var/lib/postgresql/data
-    env_file:
-      - .env
+      - ./initsql:/docker-entrypoint-initdb.d
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
 
 volumes:
   postgres-data:

@@ -12,27 +12,31 @@
        ENVIRONMENT         DIVISION.
        INPUT-OUTPUT        SECTION.
        FILE-CONTROL.
-           SELECT OTF-FILE ASSIGN EXTERNAL OTF.
+           SELECT OTF-FILE ASSIGN EXTERNAL OTF
+               ORGANIZATION LINE SEQUENTIAL.
        
        DATA                DIVISION.
        FILE                SECTION.
        FD  OTF-FILE.
        01 OTF-REC.
-           03  OUT-USERID  PIC X(5).
-           
+           03  OUT-USERID      PIC X(5).
+           03  OUT-USERNAME    PIC X(32).
+           03  OUT-USERAGE     PIC X(5).           
 
        WORKING-STORAGE     SECTION.
-       01 WK-FETCH-CNT     PIC  9(9) PACKED-DECIMAL VALUE 0.
-       01 WK-FETCH-END     PIC  X VALUE 'N'.
-      * 
+       01 FETCH-CNT        PIC  9(9) PACKED-DECIMAL VALUE 0.
+       01 FETCH-END        PIC  X VALUE 'N'.
       ******************************************************************
       *  データベースアクセス関連
       ******************************************************************
        EXEC SQL BEGIN DECLARE SECTION END-EXEC.
-       01 DSN                PIC  X(256).
-      *
+      * DB接続用文字列 
+       01 DSN              PIC  X(256).
+
       *EXEC SQL INCLUDE USERS-DECLARE END-EXEC.
+      * FETCHした情報を格納するデータ項目の定義
        EXEC SQL INCLUDE USERS END-EXEC.
+      * FETCHするカーソルの定義
        EXEC SQL DECLARE 
            USERS-CURSOR CURSOR FOR
                SELECT USERID, USERNAME, USERAGE
@@ -45,7 +49,7 @@
 
        PROCEDURE           DIVISION.
            PERFORM INIT-RTN.
-           PERFORM MAIN-RTN  UNTIL WK-FETCH-END = "Y".
+           PERFORM MAIN-RTN  UNTIL FETCH-END = "Y".
            PERFORM SUCCESSFUL-TERM-RTN.
            STOP RUN.
 
@@ -86,25 +90,29 @@
              PERFORM DBERR-TERM-RTN
            END-IF.
 
+      *    SQLカーソルを開く
            EXEC SQL  OPEN USERS-CURSOR  END-EXEC.
-           PERFORM FETCH-TABLE-RTN.
+           PERFORM FETCH-RTN.
        EXT.
            EXIT.
            
-       FETCH-TABLE-RTN          SECTION.
-      * COBOLによってはFETCHした情報をまとめて集団項目に転記できないため、
+       FETCH-RTN          SECTION.
+      * カーソルでFETCHしてデータを取得する。
+      * COBOLの環境によってはFETCHした情報を集団項目に転記できないため、
       * その場合はそれぞれの項目に転記するように記述する。
            EXEC SQL  
                FETCH USERS-CURSOR 
                 INTO :USERID, :USERNAME, :USERAGE
            END-EXEC.
+
            EVALUATE SQLCODE
       *    SQLCODE = 0 は正常終了。
              WHEN 0
-               ADD 1 TO WK-FETCH-CNT
+               ADD 1 TO FETCH-CNT
       *    SQLCODE = 100 はこれ以上データがない
              WHEN 100
-                MOVE "Y" TO WK-FETCH-END
+               MOVE "Y" TO FETCH-END
+      *    上記以外は何らかのエラー。ABEND対象。
              WHEN OTHER
                PERFORM DBERR-TERM-RTN
            END-EVALUATE.
@@ -112,9 +120,9 @@
            EXIT.
        
        MAIN-RTN            SECTION.
-           MOVE USERID TO OUT-USERID.
+           MOVE USERINFO TO OTF-REC.
            WRITE OTF-REC.
-           PERFORM FETCH-TABLE-RTN.
+           PERFORM FETCH-RTN.
        EXT.
            EXIT.
 
@@ -127,8 +135,8 @@
        DBERR-TERM-RTN      SECTION.
       *     EXEC SQL ROLLBACK END-EXEC.
            DISPLAY "!!! FETCHDB ABEND : DATABSE ACCESS ERRROR !!!"
-           DISPLAY SQLCODE.
-           DISPLAY SQLERRMC.
+           DISPLAY "SQLCODE = " SQLCODE.
+           DISPLAY "SQLERRMC = " SQLERRMC.
 
            PERFORM TERM-RTN.
        EXT.
@@ -140,7 +148,7 @@
       
            CLOSE OTF-FILE.
       
-           DISPLAY "FETCHCNT=" WK-FETCH-CNT.
+           DISPLAY "FETCHCNT=" FETCH-CNT.
            DISPLAY "*** FETCHDB END ***".
        EXT.
            EXIT.

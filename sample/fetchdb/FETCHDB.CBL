@@ -12,34 +12,44 @@
        ENVIRONMENT         DIVISION.
        INPUT-OUTPUT        SECTION.
        FILE-CONTROL.
-      *
-       SELECT OTF-FILE ASSIGN EXTERNAL OTF.
-      *
+           SELECT OTF-FILE ASSIGN EXTERNAL OTF.
+       
        DATA                DIVISION.
        FILE                SECTION.
        FD  OTF-FILE.
-       COPY USERS.
+       01 OTF-REC.
+           03  OUT-USERID  PIC X(5).
+           
 
        WORKING-STORAGE     SECTION.
-       01 WK-OTF-END-FLG   PIC  X VALUE "N".
-       01 WK-OTF-CNT       PIC  9(9) PACKED-DECIMAL VALUE 0.
-      *
-       01 WK-DBERR-FLG     PIC  X VALUE "N".
-       01 WK-DBUPDATE-CNT  PIC  9(9) PACKED-DECIMAL VALUE 0.
-      *
+       01 WK-FETCH-CNT     PIC  9(9) PACKED-DECIMAL VALUE 0.
+       01 WK-FETCH-END     PIC  X VALUE 'N'.
+      * 
+      ******************************************************************
+      *  データベースアクセス関連
+      ******************************************************************
        EXEC SQL BEGIN DECLARE SECTION END-EXEC.
-       EXEC SQL INCLUDE USERS-DECLARE END-EXEC.
-      *
        01 DSN                PIC  X(256).
+      *
+      *EXEC SQL INCLUDE USERS-DECLARE END-EXEC.
+       EXEC SQL INCLUDE USERS END-EXEC.
+       EXEC SQL DECLARE 
+           USERS-CURSOR CURSOR FOR
+               SELECT USERID, USERNAME, USERAGE
+               FROM USERINFO
+       END-EXEC.
        EXEC SQL END DECLARE SECTION END-EXEC.
       *
        EXEC SQL INCLUDE SQLCA END-EXEC.
+      ******************************************************************
 
        PROCEDURE           DIVISION.
            PERFORM INIT-RTN.
-           PERFORM MAIN-RTN UNTIL WK-OTF-END-FLG = "Y".
+           PERFORM MAIN-RTN  UNTIL WK-FETCH-END = "Y".
            PERFORM SUCCESSFUL-TERM-RTN.
-      *
+           STOP RUN.
+
+      
        INIT-RTN            SECTION.
            DISPLAY  "*** FETCHDB START ***".
       *
@@ -64,9 +74,9 @@
            STRING
              "DRIVER={Postgresql Unicode};"                             *> Postgresql ODBCドライバ
              "SERVER=db;"                                               *> 【要変更】サーバ名又はIPアドレス
-             "DATABASE=postgres;"                                       *> 【要変更】データベース名
-             "USER=postgres;"                                           *> 【要変更】ユーザ名
-             "PASSWORD=postgres;"                                       *> 【要変更】パスワード
+             "DBQ=postgres;"                                            *> 【要変更】データベース名
+             "UID=postgres;"                                            *> 【要変更】ユーザ名
+             "PWD=postgres;"                                            *> 【要変更】パスワード
              "CONNSETTINGS=SET CLIENT_ENCODING to 'SJIS';"              *> クライアント文字コード
              INTO DSN
            END-STRING.
@@ -75,43 +85,62 @@
            IF SQLCODE NOT = ZERO
              PERFORM DBERR-TERM-RTN
            END-IF.
-       EXT.
-           EXIT.
 
-       MAIN-RTN            SECTION.
-      * UPDATE命令実行時に更新対象となるレコードが0件だった時
-      * それが、NOT FOUND 条件に当てはまるかどうかは、RDBMSの実装に
-      * よって異なるため、利用する場合は事前にRDBMSのマニュアル等を
-      * チェックしておくこと。
+           EXEC SQL  OPEN USERS-CURSOR  END-EXEC.
+           PERFORM FETCH-TABLE-RTN.
        EXT.
            EXIT.
            
-       READ-TABLE          SECTION.
-           EXEC SQL OPEN 
-
+       FETCH-TABLE-RTN          SECTION.
+      * COBOLによってはFETCHした情報をまとめて集団項目に転記できないため、
+      * その場合はそれぞれの項目に転記するように記述する。
+           EXEC SQL  
+               FETCH USERS-CURSOR 
+                INTO :USERID, :USERNAME, :USERAGE
+           END-EXEC.
+           EVALUATE SQLCODE
+      *    SQLCODE = 0 は正常終了。
+             WHEN 0
+               ADD 1 TO WK-FETCH-CNT
+      *    SQLCODE = 100 はこれ以上データがない
+             WHEN 100
+                MOVE "Y" TO WK-FETCH-END
+             WHEN OTHER
+               PERFORM DBERR-TERM-RTN
+           END-EVALUATE.
        EXT.
            EXIT.
        
+       MAIN-RTN            SECTION.
+           MOVE USERID TO OUT-USERID.
+           WRITE OTF-REC.
+           PERFORM FETCH-TABLE-RTN.
+       EXT.
+           EXIT.
+
        SUCCESSFUL-TERM-RTN  SECTION.
-           EXEC SQL COMMIT END-EXEC.
+      *     EXEC SQL COMMIT END-EXEC.
            PERFORM TERM-RTN.
        EXT.
            EXIT.
 
        DBERR-TERM-RTN      SECTION.
-           EXEC SQL ROLLBACK END-EXEC.
-           DISPLAY "!!! FETCHDB ABEND !!!"
+      *     EXEC SQL ROLLBACK END-EXEC.
+           DISPLAY "!!! FETCHDB ABEND : DATABSE ACCESS ERRROR !!!"
+           DISPLAY SQLCODE.
+           DISPLAY SQLERRMC.
+
            PERFORM TERM-RTN.
        EXT.
            EXIT.
 
        TERM-RTN            SECTION.
-           EXEC SQL DISCONNECT ALL END-EXEC.
-      *
+           EXEC SQL  CLOSE USERS-CURSOR  END-EXEC.
+           EXEC SQL  DISCONNECT ALL      END-EXEC.
+      
            CLOSE OTF-FILE.
-      *
-           DISPLAY "   OTF=" WK-OTF-CNT.
-           DISPLAY "UPDATE=" WK-DBUPDATE-CNT.
+      
+           DISPLAY "FETCHCNT=" WK-FETCH-CNT.
            DISPLAY "*** FETCHDB END ***".
        EXT.
-           STOP RUN.
+           EXIT.

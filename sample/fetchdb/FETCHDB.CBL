@@ -3,7 +3,7 @@
       ******************************************************************
       * システム名    ：研修
       * サブシステム名：
-      * プログラム名  ：SQL FETCH を利用したDBアクセスサンプル
+      * プログラム名  ：SQL FETCH を利用したサンプル
       * 作成日／作成者：２０２４年７月５日  システム技研
       * 変更日／変更者：
       *       変更内容：
@@ -28,28 +28,33 @@
        01 FETCH-END        PIC  X VALUE 'N'.
       ******************************************************************
       *  データベースアクセス関連
+      *     ※ COBOL ⇔ DB する変数は DECLARE SECTION で行う。
       ******************************************************************
-       EXEC SQL BEGIN DECLARE SECTION END-EXEC.
+       EXEC SQL  BEGIN DECLARE SECTION  END-EXEC.
       * DB接続用文字列 
        01 DSN              PIC  X(256).
 
       *EXEC SQL INCLUDE USERS-DECLARE END-EXEC.
       * FETCHした情報を格納するデータ項目の定義
-       EXEC SQL INCLUDE USERS END-EXEC.
-      * FETCHするカーソルの定義
-       EXEC SQL DECLARE 
+       EXEC SQL  INCLUDE USERS  END-EXEC.
+      
+      * FETCHする対象が記載された「カーソル」の定義
+       EXEC SQL  DECLARE 
            USERS-CURSOR CURSOR FOR
                SELECT USERID, USERNAME, USERAGE
                FROM USERINFO
        END-EXEC.
-       EXEC SQL END DECLARE SECTION END-EXEC.
       *
-       EXEC SQL INCLUDE SQLCA END-EXEC.
+       EXEC SQL  END DECLARE SECTION  END-EXEC.
+      *
+      * DBの状態を保存するデータ項目は DECLARE SECTION 外に記述する。
+      * プリコンパイル時にエラーになる。 
+       EXEC SQL  INCLUDE SQLCA  END-EXEC.
       ******************************************************************
 
        PROCEDURE           DIVISION.
            PERFORM INIT-RTN.
-           PERFORM MAIN-RTN  UNTIL FETCH-END = "Y".
+           PERFORM WRITE-TO-FILE-RTN  UNTIL FETCH-END = "Y".
            PERFORM SUCCESSFUL-TERM-RTN.
            STOP RUN.
 
@@ -106,10 +111,10 @@
            END-EXEC.
 
            EVALUATE SQLCODE
-      *    SQLCODE = 0 は正常終了。
+      *    SQLCODE = 0 ⇒ 正常終了。
              WHEN 0
                ADD 1 TO FETCH-CNT
-      *    SQLCODE = 100 はこれ以上データがない
+      *    SQLCODE = 100 ⇒ これ以上データがない
              WHEN 100
                MOVE "Y" TO FETCH-END
       *    上記以外は何らかのエラー。ABEND対象。
@@ -119,7 +124,7 @@
        EXT.
            EXIT.
        
-       MAIN-RTN            SECTION.
+       WRITE-TO-FILE-RTN            SECTION.
            MOVE USERINFO TO OTF-REC.
            WRITE OTF-REC.
            PERFORM FETCH-RTN.

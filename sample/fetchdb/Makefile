@@ -10,7 +10,7 @@ RESULT_FILE := result.txt
 $(PROGRAM): $(PROGRAM).COB
 	cobc -x -I$(COPYLIBDIR) -I. -Q "-Wl,--no-as-needed" -locsql -o $@ $<
 
-$(PROGRAM).COB: $(PROGRAM).CBL USERS.cpy
+$(PROGRAM).COB: $(PROGRAM).CBL SALESDATA.cpy
 	esqlOC -Q -I $(COPYLIBDIR) -I . -o $@ $<
 
 .PHONY: run

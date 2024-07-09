@@ -36,13 +36,13 @@
 
       *EXEC SQL INCLUDE USERS-DECLARE END-EXEC.
       * FETCHした情報を格納するデータ項目の定義
-       EXEC SQL  INCLUDE USERS  END-EXEC.
+       EXEC SQL  INCLUDE SALESDATA  END-EXEC.
       
       * FETCHする対象が記載された「カーソル」の定義
        EXEC SQL  DECLARE 
-           USERS-CURSOR CURSOR FOR
-               SELECT USERID, USERNAME, USERAGE
-               FROM USERINFO
+           SALES-CURSOR CURSOR FOR
+               SELECT *
+               FROM SALESDATA
        END-EXEC.
       *
        EXEC SQL  END DECLARE SECTION  END-EXEC.
@@ -52,18 +52,25 @@
        EXEC SQL  INCLUDE SQLCA  END-EXEC.
       ******************************************************************
 
-       PROCEDURE           DIVISION.
+       PROCEDURE               DIVISION.
            PERFORM INIT-RTN.
            PERFORM WRITE-TO-FILE-RTN  UNTIL FETCH-END = "Y".
            PERFORM SUCCESSFUL-TERM-RTN.
            STOP RUN.
 
       
-       INIT-RTN            SECTION.
+       INIT-RTN                SECTION.
+      * プログラムの初期化
            DISPLAY  "*** FETCHDB START ***".
       *
            OPEN OUTPUT OTF-FILE.
+           PERFORM DBCONNECT-RTN.
       *
+           PERFORM FETCH-RTN.
+       EXT.
+           EXIT.
+         
+       DBCONNECT-RTN           SECTION.
       * ESQLOCはODBC経由でDBへ接続するコードを生成するため、データベース
       * への接続にODBC接続文字列を作成する必要がある。詳細は下記URL参照。
       * https://www.microfocus.co.jp/manuals/ED60/VS2017/GUID-2B444A32-4991-4396-B9F1-68AB643B5EBA.html
@@ -96,18 +103,24 @@
            END-IF.
 
       *    SQLカーソルを開く
-           EXEC SQL  OPEN USERS-CURSOR  END-EXEC.
-           PERFORM FETCH-RTN.
+           EXEC SQL  OPEN SALES-CURSOR  END-EXEC.
        EXT.
            EXIT.
-           
-       FETCH-RTN          SECTION.
+
+       FETCH-RTN               SECTION.
       * カーソルでFETCHしてデータを取得する。
       * COBOLの環境によってはFETCHした情報を集団項目に転記できないため、
       * その場合はそれぞれの項目に転記するように記述する。
            EXEC SQL  
-               FETCH USERS-CURSOR 
-                INTO :USERID, :USERNAME, :USERAGE
+               FETCH SALES-CURSOR 
+                INTO :SALES-DATA_KBN,
+                     :SALES-JUCHU_NO,
+                     :SALES-JUCHU_YY,
+                     :SALES-JUCHU_MM,
+                     :SALES-JUCHU_DD,
+                     :SALES-TOKU_COD,
+                     :SALES-SHOHIN_NO,
+                     :SALES-SURYO
            END-EXEC.
 
            EVALUATE SQLCODE
@@ -124,35 +137,32 @@
        EXT.
            EXIT.
        
-       WRITE-TO-FILE-RTN            SECTION.
-           MOVE USERINFO TO OTF-REC.
+       WRITE-TO-FILE-RTN       SECTION.
+           MOVE SALESDATA TO OTF-REC.
            WRITE OTF-REC.
            PERFORM FETCH-RTN.
        EXT.
            EXIT.
 
-       SUCCESSFUL-TERM-RTN  SECTION.
+       SUCCESSFUL-TERM-RTN     SECTION.
       *     EXEC SQL COMMIT END-EXEC.
            PERFORM TERM-RTN.
        EXT.
            EXIT.
 
-       DBERR-TERM-RTN      SECTION.
+       DBERR-TERM-RTN          SECTION.
       *     EXEC SQL ROLLBACK END-EXEC.
            DISPLAY "!!! FETCHDB ABEND : DATABSE ACCESS ERRROR !!!"
            DISPLAY "SQLCODE = " SQLCODE.
            DISPLAY "SQLERRMC = " SQLERRMC.
-
            PERFORM TERM-RTN.
        EXT.
            EXIT.
 
-       TERM-RTN            SECTION.
-           EXEC SQL  CLOSE USERS-CURSOR  END-EXEC.
+       TERM-RTN                SECTION.
+           EXEC SQL  CLOSE SALES-CURSOR  END-EXEC.
            EXEC SQL  DISCONNECT ALL      END-EXEC.
-      
-           CLOSE OTF-FILE.
-      
+           CLOSE OTF-FILE.      
            DISPLAY "FETCHCNT=" FETCH-CNT.
            DISPLAY "*** FETCHDB END ***".
        EXT.

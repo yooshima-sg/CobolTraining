@@ -15,12 +15,12 @@
       
       * DBÇÃèÓïÒÇäiî[Ç∑ÇÈÇΩÇﬂÇÃèWícçÄñ⁄
        01 SALESDATA.
-         03  SALES-DATA_KBN   PIC X(1).
-         03  SALES-JUCHU_NO   PIC 9(4).
-         03  SALES-JUCHU_YY   PIC 9(2).
-         03  SALES-JUCHU_MM   PIC 9(2).
-         03  SALES-JUCHU_DD   PIC 9(2).
-         03  SALES-TOKU_COD   PIC X(4).
-         03  SALES-SHOHIN_NO  PIC X(5).
+         03  SALES-DATA-KBN   PIC X(1).
+         03  SALES-JUCHU-NO   PIC 9(4).
+         03  SALES-JUCHU-YY   PIC 9(2).
+         03  SALES-JUCHU-MM   PIC 9(2).
+         03  SALES-JUCHU-DD   PIC 9(2).
+         03  SALES-TOKU-COD   PIC X(4).
+         03  SALES-SHOHIN-NO  PIC X(5).
          03  SALES-SURYO      PIC 9(5).
            

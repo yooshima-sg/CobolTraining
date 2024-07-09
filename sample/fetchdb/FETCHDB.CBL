@@ -12,21 +12,13 @@
        ENVIRONMENT         DIVISION.
        INPUT-OUTPUT        SECTION.
        FILE-CONTROL.
-           SELECT OTF-FILE ASSIGN EXTERNAL OTF
-               ORGANIZATION LINE SEQUENTIAL.
+           SELECT OTF-FILE ASSIGN TO OTF.
        
        DATA                DIVISION.
        FILE                SECTION.
        FD  OTF-FILE.
        01 OTF-REC.
-         03  OTF-SALES-DATA_KBN   PIC X(1).
-         03  OTF-SALES-JUCHU_NO   PIC 9(4).
-         03  OTF-SALES-JUCHU_YY   PIC 9(2).
-         03  OTF-SALES-JUCHU_MM   PIC 9(2).
-         03  OTF-SALES-JUCHU_DD   PIC 9(2).
-         03  OTF-SALES-TOKU_COD   PIC X(4).
-         03  OTF-SALES-SHOHIN_NO  PIC X(5).
-         03  OTF-SALES-SURYO      PIC 9(5).
+         COPY KJCF020.
 
        WORKING-STORAGE     SECTION.
        01 OTF-CNT          PIC  9(9) PACKED-DECIMAL VALUE 0.
@@ -130,13 +122,13 @@
       * その場合はそれぞれの項目に転記するように記述する。
            EXEC SQL  
                FETCH SALES-CURSOR 
-                INTO :SALES-DATA_KBN,
-                     :SALES-JUCHU_NO,
-                     :SALES-JUCHU_YY,
-                     :SALES-JUCHU_MM,
-                     :SALES-JUCHU_DD,
-                     :SALES-TOKU_COD,
-                     :SALES-SHOHIN_NO,
+                INTO :SALES-DATA-KBN,
+                     :SALES-JUCHU-NO,
+                     :SALES-JUCHU-YY,
+                     :SALES-JUCHU-MM,
+                     :SALES-JUCHU-DD,
+                     :SALES-TOKU-COD,
+                     :SALES-SHOHIN-NO,
                      :SALES-SURYO
            END-EXEC.
 
@@ -158,9 +150,20 @@
       * 処理結果をファイルに出力
       ******************************************************************
        WRITE-TO-FILE-RTN       SECTION.
-           MOVE SALESDATA TO OTF-REC.
+           INITIALIZE OTF-REC.
+
+           MOVE SALES-DATA-KBN TO JF020-DATA-KBN.
+           MOVE SALES-JUCHU-NO TO JF020-JUCHU-NO-X.
+           MOVE SALES-JUCHU-YY TO JF020-JUCHU-Y2.
+           MOVE SALES-JUCHU-MM TO JF020-JUCHU-MM.
+           MOVE SALES-JUCHU-DD TO JF020-JUCHU-DD.
+           MOVE SALES-TOKU-COD TO JF020-TOKU-COD.
+           MOVE SALES-SHOHIN-NO TO JF020-SHOHIN-NO.
+           MOVE SALES-SURYO TO JF020-SURYO-X.
+
            WRITE OTF-REC.
            ADD 1 TO OTF-CNT.
+
            PERFORM FETCH-RTN.
        EXT.
            EXIT.

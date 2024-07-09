@@ -19,11 +19,17 @@
        FILE                SECTION.
        FD  OTF-FILE.
        01 OTF-REC.
-           03  OUT-USERID      PIC X(5).
-           03  OUT-USERNAME    PIC X(32).
-           03  OUT-USERAGE     PIC X(5).           
+         03  OTF-SALES-DATA_KBN   PIC X(1).
+         03  OTF-SALES-JUCHU_NO   PIC 9(4).
+         03  OTF-SALES-JUCHU_YY   PIC 9(2).
+         03  OTF-SALES-JUCHU_MM   PIC 9(2).
+         03  OTF-SALES-JUCHU_DD   PIC 9(2).
+         03  OTF-SALES-TOKU_COD   PIC X(4).
+         03  OTF-SALES-SHOHIN_NO  PIC X(5).
+         03  OTF-SALES-SURYO      PIC 9(5).
 
        WORKING-STORAGE     SECTION.
+       01 OTF-CNT          PIC  9(9) PACKED-DECIMAL VALUE 0.
        01 FETCH-CNT        PIC  9(9) PACKED-DECIMAL VALUE 0.
        01 FETCH-END        PIC  X VALUE 'N'.
       ******************************************************************
@@ -52,24 +58,32 @@
        EXEC SQL  INCLUDE SQLCA  END-EXEC.
       ******************************************************************
 
+      ******************************************************************
+      * メインルーチン
+      ******************************************************************
        PROCEDURE               DIVISION.
            PERFORM INIT-RTN.
            PERFORM WRITE-TO-FILE-RTN  UNTIL FETCH-END = "Y".
            PERFORM SUCCESSFUL-TERM-RTN.
            STOP RUN.
 
-      
+      ******************************************************************
+      * 初期化処理
+      ******************************************************************
        INIT-RTN                SECTION.
       * プログラムの初期化
            DISPLAY  "*** FETCHDB START ***".
       *
            OPEN OUTPUT OTF-FILE.
+
            PERFORM DBCONNECT-RTN.
-      *
            PERFORM FETCH-RTN.
        EXT.
            EXIT.
          
+      ******************************************************************
+      * データベースへ接続する処理
+      ******************************************************************
        DBCONNECT-RTN           SECTION.
       * ESQLOCはODBC経由でDBへ接続するコードを生成するため、データベース
       * への接続にODBC接続文字列を作成する必要がある。詳細は下記URL参照。
@@ -96,7 +110,7 @@
              "CONNSETTINGS=SET CLIENT_ENCODING to 'SJIS';"              *> クライアント文字コード
              INTO DSN
            END-STRING.
-
+      ******************************************************************
            EXEC SQL CONNECT TO :DSN END-EXEC.
            IF SQLCODE NOT = ZERO
              PERFORM DBERR-TERM-RTN
@@ -107,6 +121,9 @@
        EXT.
            EXIT.
 
+      ******************************************************************
+      * 目的のカーソル(テーブル)から1レコード読み取る
+      ******************************************************************
        FETCH-RTN               SECTION.
       * カーソルでFETCHしてデータを取得する。
       * COBOLの環境によってはFETCHした情報を集団項目に転記できないため、
@@ -137,19 +154,29 @@
        EXT.
            EXIT.
        
+      ******************************************************************
+      * 処理結果をファイルに出力
+      ******************************************************************
        WRITE-TO-FILE-RTN       SECTION.
            MOVE SALESDATA TO OTF-REC.
            WRITE OTF-REC.
+           ADD 1 TO OTF-CNT.
            PERFORM FETCH-RTN.
        EXT.
            EXIT.
 
+      ******************************************************************
+      * 問題なく処理が完了した時の終了処理
+      ******************************************************************
        SUCCESSFUL-TERM-RTN     SECTION.
       *     EXEC SQL COMMIT END-EXEC.
            PERFORM TERM-RTN.
        EXT.
            EXIT.
 
+      ******************************************************************
+      * 処理宙にエラーが発生した時の終了処理
+      ******************************************************************
        DBERR-TERM-RTN          SECTION.
       *     EXEC SQL ROLLBACK END-EXEC.
            DISPLAY "!!! FETCHDB ABEND : DATABSE ACCESS ERRROR !!!"
@@ -159,11 +186,18 @@
        EXT.
            EXIT.
 
+      *****************************************************************
+      * 共通のプログラム終了処理
+      ******************************************************************
        TERM-RTN                SECTION.
+      *    カーソルを閉じる
            EXEC SQL  CLOSE SALES-CURSOR  END-EXEC.
+      *    DBから切断する。
            EXEC SQL  DISCONNECT ALL      END-EXEC.
+      *    ファイルを閉じる。
            CLOSE OTF-FILE.      
            DISPLAY "FETCHCNT=" FETCH-CNT.
+           DISPLAY "OTFCNT  =" OTF-CNT.
            DISPLAY "*** FETCHDB END ***".
        EXT.
            EXIT.

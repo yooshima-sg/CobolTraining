@@ -1,7 +1,5 @@
 {
-    "[COBOL]": {
-        "files.encoding": "shiftjis",
-    },
+    "files.encoding": "shiftjis",
     "workbench.editor.showTabs": "multiple",
     "coboleditor.format_constants_to_uppercase": true,
     "coboleditor.intellisense_style": "uppercase",

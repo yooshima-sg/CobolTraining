@@ -2,9 +2,9 @@
 set -euo pipefail
 
 #######################################################
-##   GCSORT ツールを利用したデータのソート
-##   ※環境によって提供されるツールは異なるので、それぞれのドキュメントや
-##     サンプル、利用しているファイルを参照して、使い方を習得すること
+##   GCSORT �c�[���𗘗p�����f�[�^�̃\�[�g
+##   �����ɂ���Ē񋟂����c�[���͈قȂ�̂ŁA���ꂼ��̃h�L�������g��
+##     �T���v���A���p���Ă���t�@�C�����Q�Ƃ��āA�g�������K�����邱��
 #######################################################
 
 SOURCE=$(realpath ../../data/KJBM030i.txt)
@@ -19,9 +19,9 @@ SORT FIELDS=(2, 4, ZD, A)
     USE  $SOURCE RECORD F,100 ORG SQ
     GIVE $DEST   RECORD F,100 ORG SQ
 _EOF_
-# ↑ ファイルの内容
-# FIELDS=(ソート対象開始位置、桁数、データタイプ、昇降順、[ソート対象開始位置、桁数、データタイプ、昇降順, [...]])
-#     USE  ソート対象のファイルパス RECORD 固定長,1レコードの桁数 ORG SQ(順ファイル)
-#     GIVE ソート結果のファイルパス RECORD 固定長,1レコードの桁数 ORG SQ(順ファイル)
+# �� �t�@�C���̓��e
+# FIELDS=(�\�[�g�ΏۊJ�n�ʒu�A�����A�f�[�^�^�C�v�A���~���A[�\�[�g�ΏۊJ�n�ʒu�A�����A�f�[�^�^�C�v�A���~��, [...]])
+#     USE  �\�[�g�Ώۂ̃t�@�C���p�X RECORD �Œ蒷,1���R�[�h�̌��� ORG SQ(���t�@�C��)
+#     GIVE �\�[�g���ʂ̃t�@�C���p�X RECORD �Œ蒷,1���R�[�h�̌��� ORG SQ(���t�@�C��)
 
 gcsort TAKE $CTRLFILE

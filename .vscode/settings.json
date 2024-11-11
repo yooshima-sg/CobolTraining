@@ -17,5 +17,8 @@
         "$COBCPY",
         "$COPYPATH",
         "copylib"
-    ]
+    ],
+    "editor.fontFamily": "MS Gothic",
+    "editor.fontSize": 16,
+    "terminal.integrated.fontSize": 16
 }

@@ -1,0 +1,21 @@
+       IDENTIFICATION DIVISION.
+       PROGRAM-ID. CALCYESTERDAY.
+
+       ENVIRONMENT DIVISION.
+       
+       DATA DIVISION.
+       WORKING-STORAGE SECTION.
+       01 N-TODAY                PIC      9(08).
+       01 I-TODAY                PIC      9(08).
+       01 YESTERDAY              PIC      9(08).
+
+       LINKAGE SECTION.
+       COPY  CALCYESTERDAY-PARAMS.
+
+       PROCEDURE  DIVISION  USING  CALCYESTERDAY-P1.
+           MOVE  DATE-YYYYMMDD  TO  N-TODAY.
+           MOVE  FUNCTION INTEGER-OF-DATE(N-TODAY)  TO  I-TODAY.
+           COMPUTE  YESTERDAY  =  
+                       FUNCTION DATE-OF-INTEGER(I-TODAY - 1).
+           MOVE  YESTERDAY  TO  YESTERDAY-YYYYMMDD.
+           EXIT PROGRAM.

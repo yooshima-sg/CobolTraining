@@ -1,33 +1,33 @@
-# COBOLè¨€èªç ”ä¿®ç”¨ç’°å¢ƒ
+# COBOLŒ¾ŒêŒ¤C—pŠÂ‹«
 
-DevContainerã‚’åˆ©ç”¨ã—ãŸCOBOLè¨€èªç ”ä¿®ç”¨ã®ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒªãƒã‚¸ãƒˆãƒªã§ã™ã€‚
+DevContainer‚ğ—˜—p‚µ‚½COBOLŒ¾ŒêŒ¤C—p‚Ìƒeƒ“ƒvƒŒ[ƒgƒŠƒ|ƒWƒgƒŠ‚Å‚·B
 
-## ä½¿ç”¨ã§ãã‚‹ãƒ„ãƒ¼ãƒ«
+## g—p‚Å‚«‚éƒc[ƒ‹
 
 * [GnuCOBOL 3.2](https://sourceforge.net/projects/gnucobol/)
-  * COBOLè¨€èªã‚³ãƒ³ãƒ‘ã‚¤ãƒ©
+  * COBOLŒ¾ŒêƒRƒ“ƒpƒCƒ‰
 * [OpenCobol ESQL 1.3](https://github.com/opensourcecobol/Open-COBOL-ESQL)
-  * PostgreSQL 9.0+æ¥ç¶šã‚’ã‚µãƒãƒ¼ãƒˆã—ãŸSQLãƒ—ãƒªãƒ—ãƒ­ã‚»ãƒƒã‚µ
+  * PostgreSQL 9.0+Ú‘±‚ğƒTƒ|[ƒg‚µ‚½SQLƒvƒŠƒvƒƒZƒbƒT
 * [esqlOC](https://sourceforge.net/p/gnucobol/contrib/HEAD/tree/trunk/esql/) in [GnuCOBOL Contributions](https://sourceforge.net/p/gnucobol/contrib/HEAD/tree/trunk/)
-  * ODBCã«ã‚ˆã‚‹æ¥ç¶šã‚’ã‚µãƒãƒ¼ãƒˆã—ãŸSQLãƒ—ãƒªãƒ—ãƒ­ã‚»ãƒƒã‚µ
+  * ODBC‚É‚æ‚éÚ‘±‚ğƒTƒ|[ƒg‚µ‚½SQLƒvƒŠƒvƒƒZƒbƒT
 * [GCSORT](https://sourceforge.net/p/gnucobol/contrib/HEAD/tree/trunk/tools/GCSORT/) in [GnuCOBOL Contributions](https://sourceforge.net/p/gnucobol/contrib/HEAD/tree/trunk/)
-  * MFSORTã®ã‚ˆã†ãªæ©Ÿèƒ½ã‚’æŒã¤ã‚½ãƒ¼ãƒˆãƒ¦ãƒ¼ãƒ†ã‚£ãƒªãƒ†ã‚£
+  * MFSORT‚Ì‚æ‚¤‚È‹@”\‚ğ‚Âƒ\[ƒgƒ†[ƒeƒBƒŠƒeƒB
 
-## å¿…è¦ãªã‚¢ãƒ—ãƒª
+## •K—v‚ÈƒAƒvƒŠ
 
 * [Visual Studio Code](https://code.visualstudio.com/)
-  * [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) æ‹¡å¼µã‚‚ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¦ãã ã•ã„ã€‚
+  * [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) Šg’£‚àƒCƒ“ƒXƒg[ƒ‹‚µ‚Ä‚­‚¾‚³‚¢B
 * Docker
-  * Windows/Macã‚’ã”åˆ©ç”¨ã®æ–¹ã¯ã€[Docker Desktop](https://www.docker.com/products/docker-desktop/)ã‚’ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¦ãã ã•ã„ã€‚
+  * Windows/Mac‚ğ‚²—˜—p‚Ì•û‚ÍA[Docker Desktop](https://www.docker.com/products/docker-desktop/)‚ğƒCƒ“ƒXƒg[ƒ‹‚µ‚Ä‚­‚¾‚³‚¢B
 * Git
-  * Windowsã‚’ã”åˆ©ç”¨ã®æ–¹ã¯ã€[Git for Windows](https://gitforwindows.org/)ã‚’ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¦ãã ã•ã„ã€‚
+  * Windows‚ğ‚²—˜—p‚Ì•û‚ÍA[Git for Windows](https://gitforwindows.org/)‚ğƒCƒ“ƒXƒg[ƒ‹‚µ‚Ä‚­‚¾‚³‚¢B
 
-## ä½¿ã„æ–¹
+## g‚¢•û
 
-1. æœ¬ãƒªãƒã‚¸ãƒˆãƒªã‚’é©å½“ãªãƒ•ã‚©ãƒ«ãƒ€ã«ã‚¯ãƒ­ãƒ¼ãƒ³ã—ã¾ã™ã€‚
-2. VSCodeã‚’é–‹ãã‚¯ãƒ­ãƒ¼ãƒ³ã—ãŸãƒ•ã‚©ãƒ«ãƒ€ã‚’é–‹ãã¾ã™ã€‚
-3. ã‚³ãƒãƒ³ãƒ‰ãƒ‘ãƒ¬ãƒƒãƒˆ(Ctrl + Shift + p)ã‹ã‚‰ã€Œé–‹ç™ºã‚³ãƒ³ãƒ†ãƒŠâ€•: ã‚³ãƒ³ãƒ†ãƒŠâ€•ã§å†åº¦é–‹ãã€ã‚’é¸æŠ
-4. ã‚¨ã‚¯ã‚¹ãƒ—ãƒ­ãƒ¼ãƒ©ã«ãƒ•ã‚¡ã‚¤ãƒ«ãŒè¡¨ç¤ºã•ã‚Œã€æ“ä½œã§ãã‚‹ã‚ˆã†ã«ãªã£ãŸã‚‰æº–å‚™å®Œäº†ã§ã™ã€‚
+1. –{ƒŠƒ|ƒWƒgƒŠ‚ğ“K“–‚ÈƒtƒHƒ‹ƒ_‚ÉƒNƒ[ƒ“‚µ‚Ü‚·B
+2. VSCode‚ğŠJ‚«ƒNƒ[ƒ“‚µ‚½ƒtƒHƒ‹ƒ_‚ğŠJ‚«‚Ü‚·B
+3. ƒRƒ}ƒ“ƒhƒpƒŒƒbƒg(Ctrl + Shift + p)‚©‚çuŠJ”­ƒRƒ“ƒeƒi\: ƒRƒ“ƒeƒi\‚ÅÄ“xŠJ‚­v‚ğ‘I‘ğ
+4. ƒGƒNƒXƒvƒ[ƒ‰‚Éƒtƒ@ƒCƒ‹‚ª•\¦‚³‚êA‘€ì‚Å‚«‚é‚æ‚¤‚É‚È‚Á‚½‚ç€”õŠ®—¹‚Å‚·B
 
 ## License
 

@@ -1,9 +1,9 @@
 #!/bin/bash
-set -Eeuo pipefail
+set -euo pipefail
 
 SCRIPTDIR=$(cd $(dirname $0); pwd)
 
-PROGRAMNAME=$(basename "${SCRIPTDIR}")
+PROGRAMNAME="TEST-CALCYESTERDAY"
 BINDIR="${SCRIPTDIR}"
 PROGRAM="${BINDIR}/${PROGRAMNAME}"
 

@@ -1,11 +1,11 @@
 #!/bin/sh
 ##########################################################################
-# UNIX-COBOL 実習環境構築スクリプト for devcontainer
+# UNIX-COBOL 実習環�?構築スクリプト for devcontainer
 # Copyright (C) 2022-2023 SystemGiken Co.Ltd,
 #
-# GnuCOBOL、各種プリプロセッサ、ソートツールをサーバにインストールします。
+# GnuCOBOL、各種プリプロセ�?サ、ソートツールをサーバにインスト�?�ルします�?
 #
-# 動作環境:
+# 動作環�?:
 #   Ubuntu 22.04
 ##########################################################################
 set -eu
@@ -31,7 +31,7 @@ echo "Generate ja_JP.SJIS locale ... "
     locale-gen
 }
 
-# パッケージをインストールする。
+# パッケージをインスト�?�ルする�?
 echo "Installing required packages ..."
 {
     apt-get -y update && \
@@ -42,7 +42,7 @@ echo "Installing required packages ..."
 
 cd "${BUILD_DIR}"
 
-## GnuCobol をビルドしてインストール
+## GnuCobol をビルドしてインスト�?�ル
 if [ ! -f "${SCRIPT_DIR}/${GNUCOBOL_SRC_PKG}" ]; then
     echo "Downloading GnuCOBOL Source package ..."
     curl -sSL -o "${BUILD_DIR}/${GNUCOBOL_SRC_PKG}" "${GNUCOBOL_SRC_URL}"
@@ -64,7 +64,7 @@ tar xf "${BUILD_DIR}/${GNUCOBOL_SRC_PKG}" --strip-components 1 -C gnucobol
 echo "Done."
 
 
-## Open COBOL ESQL をビルドしてインストール
+## Open COBOL ESQL をビルドしてインスト�?�ル
 if [ ! -f "${SCRIPT_DIR}/${OCESQL_SRC_PKG}" ]; then
     echo "Downloading OpenCOBOL-ESQL source package ..."
     OCESQL_SRC_URL="https://github.com/opensourcecobol/Open-COBOL-ESQL/archive/refs/tags/v1.3.tar.gz"

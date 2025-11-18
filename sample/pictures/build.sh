@@ -9,6 +9,3 @@ DIRNAME=$(basename "${SCRIPTDIR}")
 BINNAME=$(basename -s .COB $PROGRAMNAME)
 
 cobc -x -o "${BINDIR}/${BINNAME}" -I"${COPYLIBDIR}" "${PROGRAMNAME}"
-
-export OTF=result.txt
-${BINDIR}/${BINNAME}

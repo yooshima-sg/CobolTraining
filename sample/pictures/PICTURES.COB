@@ -1,7 +1,7 @@
        IDENTIFICATION      DIVISION.
        PROGRAM-ID. PICTURES.
       ****************************************************************
-      * 数値項目がファイルに保存したときの状態を確認するプログラム
+      * 数値項目をファイルに保存したときの状態を確認するプログラム
       ****************************************************************
        ENVIRONMENT         DIVISION.
        INPUT-OUTPUT        SECTION.
@@ -10,7 +10,7 @@
       *
        DATA                DIVISION.
        FILE                SECTION.
-       FD OTF-FILE.
+       FD  OTF-FILE.
        01  OTF-REC.
       *  ZONED
          03  WHOLENUMBER             PIC  9(4).
@@ -22,7 +22,8 @@
          03  PD-WHOLENUMBER          PIC  9(4)   PACKED-DECIMAL.
          03  PD-INTEGER              PIC S9(4)   PACKED-DECIMAL.
          03  PD-DECIMAL-NUM          PIC 99v99   PACKED-DECIMAL.
-         03  PD-SIGNED-DECIMAL-NUM   PIC S99v99  PACKED-DECIMAL.
+         03  PD-SIGNED-DECIMAL-PLUS  PIC S99v99  PACKED-DECIMAL.
+         03  PD-SIGNED-DECIMAL-MINUS PIC S99v99  PACKED-DECIMAL.
 
        PROCEDURE           DIVISION.
            OPEN  OUTPUT  OTF-FILE.
@@ -37,7 +38,8 @@
            MOVE  1234    TO  PD-WHOLENUMBER.
            MOVE -1234    TO  PD-INTEGER.
            MOVE    12.34 TO  PD-DECIMAL-NUM.
-           MOVE   -12.34 TO  PD-SIGNED-DECIMAL-NUM.
+           MOVE   +12.34 TO  PD-SIGNED-DECIMAL-PLUS.
+           MOVE   -12.34 TO  PD-SIGNED-DECIMAL-MINUS.
       *
            WRITE  OTF-REC.
            CLOSE  OTF-FILE.

@@ -88,7 +88,7 @@
       * Ubuntu 22.04では、odbc-postgresqlパッケージのインストールが必要。
       *
       * 埋込SQLを利用する場合は、COBOL側の文字コードに合わせてデータを
-      * 崇徳する必要がある。研修の環境は'SJIS'のため、データ取得時の
+      * 取得する必要がある。研修の環境は'SJIS'のため、データ取得時の
       * 文字エンコードを'SJIS'に設定する。(しないと文字化けが発生する)
       * 文字エンコードを設定するには、
       *   CONNSETTINGS=SET CLIENT_ENCODING TO 'SJIS'
@@ -203,4 +203,4 @@
            DISPLAY "OTFCNT  =" OTF-CNT.
            DISPLAY "*** FETCHDB END ***".
        EXT.
-           EXIT.
+           STOP RUN.

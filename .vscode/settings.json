@@ -18,7 +18,7 @@
         "$COPYPATH",
         "copylib"
     ],
-    "editor.fontFamily": "MS Gothic",
+    "editor.fontFamily": "\"UDEV Gothic NF\", \"MS Gothic\"",
     "editor.fontSize": 16,
     "terminal.integrated.fontSize": 16
 }

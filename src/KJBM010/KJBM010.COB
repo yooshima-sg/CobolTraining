@@ -11,6 +11,5 @@
            PERFORM DISP-MESSAGE.
            STOP RUN.
 
-       DISP-MESSAGE SECTION.
+       DISP-MESSAGE.
            DISPLAY PROG-MESSAGE.
-           EXIT.

@@ -1,15 +1,15 @@
-# COBOL言語研修用環境
+# COBOL言語実習環境
 
-DevContainerを利用したCOBOL言語研修用のテンプレートリポジトリです。
+DevContainerを利用したCOBOL言語実習環境のテンプレートリポジトリです。
 
 ## 使用できるツール
 
 * [GnuCOBOL 3.2](https://sourceforge.net/projects/gnucobol/)
   * COBOL言語コンパイラ
 * [esqlOC](https://sourceforge.net/p/gnucobol/contrib/HEAD/tree/trunk/esql/) in [GnuCOBOL Contributions](https://sourceforge.net/p/gnucobol/contrib/HEAD/tree/trunk/)
-  * ODBCによる接続をサポートしたSQLプリプロセッサ
+  * ODBC接続を使用するSQLプリプロセッサ
 * [GCSORT](https://sourceforge.net/p/gnucobol/contrib/HEAD/tree/trunk/tools/GCSORT/) in [GnuCOBOL Contributions](https://sourceforge.net/p/gnucobol/contrib/HEAD/tree/trunk/)
-  * MFSORTのような機能を持つソートユーティリティ
+  * MFSORTのようなソートユーティリティ
 
 ## 必要なアプリ
 

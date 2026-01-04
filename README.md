@@ -6,8 +6,6 @@ DevContainerを利用したCOBOL言語研修用のテンプレートリポジトリです。
 
 * [GnuCOBOL 3.2](https://sourceforge.net/projects/gnucobol/)
   * COBOL言語コンパイラ
-* [OpenCobol ESQL 1.3](https://github.com/opensourcecobol/Open-COBOL-ESQL)
-  * PostgreSQL 9.0+接続をサポートしたSQLプリプロセッサ
 * [esqlOC](https://sourceforge.net/p/gnucobol/contrib/HEAD/tree/trunk/esql/) in [GnuCOBOL Contributions](https://sourceforge.net/p/gnucobol/contrib/HEAD/tree/trunk/)
   * ODBCによる接続をサポートしたSQLプリプロセッサ
 * [GCSORT](https://sourceforge.net/p/gnucobol/contrib/HEAD/tree/trunk/tools/GCSORT/) in [GnuCOBOL Contributions](https://sourceforge.net/p/gnucobol/contrib/HEAD/tree/trunk/)

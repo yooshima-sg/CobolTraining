@@ -29,8 +29,10 @@ DevContainerを利用したCOBOL言語実習環境のテンプレートリポジ
 
 ## ライセンス
 
-- GnuCOBOLは、`GPLv3`でライセンスされています。(COPYINGファイルを参照してください。)
-- esqlOCは、`GPLv3`でライセンスされています。(COPYINGファイルを参照してください。)
-- GCSORTは、`GPLv3`でライセンスされています。(COPYINGファイルを参照してください。)
-- その他、設定ファイル、環境構築スクリプト(.devcontaienrフォルダ内)、サンプルプログラム(sampleフォルダ内)などは`MITライセンス`とします。
+- GnuCOBOLは、`GPLv3`でライセンスされています。[COPYING](https://sourceforge.net/p/gnucobol/code/HEAD/tree/trunk/COPYING)を参照してください。
+- esqlOCは、`GPLv3`でライセンスされています。[COPYING](https://sourceforge.net/p/gnucobol/contrib/HEAD/tree/trunk/esql/COPYING)ファイルを参照してください。
+  - ランタイムライブラリの ocsql は `LGPLv3`でライセンスされています。[COPYING.LESSER](https://sourceforge.net/p/gnucobol/contrib/HEAD/tree/trunk/esql/COPYING.LESSER)を参照してください。
+- GCSORTは、`GPLv3`でライセンスされています。[COPYING](https://sourceforge.net/p/gnucobol/contrib/HEAD/tree/trunk/tools/GCSORT/COPYING)を参照してください。
+- 上位機以外のその他、設定ファイル、環境構築スクリプト(.devcontaienrフォルダ内)、サンプルプログラム(sampleフォルダ内)などは`MITライセンス`とします。
+
 

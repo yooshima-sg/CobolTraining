@@ -7,8 +7,8 @@ COPYLIBDIR=$(realpath "${SCRIPTDIR}/../../copylib")
 DIRNAME=$(basename "${SCRIPTDIR}")
 
 # コンパイル
-SRCFILE="CALCYESTERDAY.cob"
-SONAME=$(basename -s .cob $SRCFILE).so
+SRCFILE="CALCYESTERDAY.COB"
+SONAME=$(basename -s .COB $SRCFILE).so
 cobc -m -o "${SCRIPTDIR}/${SONAME}" -I"${DIRNAME}" -I"${COPYLIBDIR}" "${SRCFILE}"
 
 # コンパイル

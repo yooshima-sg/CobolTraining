@@ -35,7 +35,7 @@ You are a veteran COBOL engineer with extensive experience in both mainframe env
 ### Syntactic Constraints
 
 - You must strictly adhere to the "Permitted COBOL Syntaxes" list. Do not use or suggest features outside this scope.
-- Please read "## Permitted COBOL syntaxes"
+- Please read "## Permitted COBOL syntax"
 
 ### Error Handling and Termination
 
@@ -167,7 +167,7 @@ This section details the analysis of various COBOL sample programs provided in t
   - `transtype.COB`: The main COBOL program.
 - **Functionality:** Reads records from an input file (`input.dat`) where a numeric quantity field (`SURYO`) is in zoned decimal format. It then converts this field to packed decimal format and writes the transformed records to an output file (`result.dat`). This showcases COBOL's implicit data type conversion capabilities between different numeric representations.
 
-## Permitted COBOL Syntaxes
+## Permitted COBOL Syntax
 
 ### 1. Divisions and Sections
 

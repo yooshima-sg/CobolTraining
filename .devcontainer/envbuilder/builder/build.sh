@@ -1,11 +1,11 @@
 #!/bin/sh
 ##########################################################################
-# UNIX-COBOL 実習環�?構築スクリプト for devcontainer
+# UNIX-COBOL 実習環境構築スクリプト for devcontainer
 # Copyright (C) 2022-2023 SystemGiken Co.Ltd,
 #
-# GnuCOBOL、各種プリプロセ�?サ、ソートツールをインスト�?�ルします�?
+# GnuCOBOL、各種プリプロセッサ、ソートツールをインストールします。
 #
-# 動作環�?:
+# 動作環境:
 #   Ubuntu 22.04
 #   Ubuntu 24.04
 ##########################################################################
@@ -32,7 +32,7 @@ echo "Generate ja_JP.SJIS locale ... "
     locale-gen
 }
 
-# �?要なパッケージをインスト�?�ルする
+# 必要なパッケージをインストールする
 echo "Installing required packages ..."
 {
     apt-get -y update && \
@@ -44,7 +44,7 @@ echo "Installing required packages ..."
 
 cd "${BUILD_DIR}"
 
-## GnuCobol をビルドしてインスト�??��ル
+## GnuCobol 関連のパッケージをビルドしてインストールする。
 if [ ! -f "${SCRIPT_DIR}/${GNUCOBOL_SRC_PKG}" ]; then
     echo "Downloading GnuCOBOL Source package ..."
     curl -sSL -o "${BUILD_DIR}/${GNUCOBOL_SRC_PKG}" "${GNUCOBOL_SRC_URL}"

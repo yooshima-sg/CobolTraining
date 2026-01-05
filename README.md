@@ -1,35 +1,35 @@
-# COBOLŒ¾ŒêŽÀKŠÂ‹«
+# COBOLè¨€èªžå®Ÿç¿’ç’°å¢ƒ
 
-DevContainer‚ð—˜—p‚µ‚½COBOLŒ¾ŒêŽÀKŠÂ‹«‚Ìƒeƒ“ƒvƒŒ[ƒgƒŠƒ|ƒWƒgƒŠ‚Å‚·B
+DevContainerã‚’åˆ©ç”¨ã—ãŸCOBOLè¨€èªžå®Ÿç¿’ç’°å¢ƒã®ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒªãƒã‚¸ãƒˆãƒªã§ã™ã€‚
 
-## Žg—p‚Å‚«‚éƒc[ƒ‹
+## ä½¿ç”¨ã§ãã‚‹ãƒ„ãƒ¼ãƒ«
 
 * [GnuCOBOL 3.2 OSSCONS Patch.2](https://github.com/opensourcecobol/gnucobol-osscons-patch.git)
-  * COBOLŒ¾ŒêƒRƒ“ƒpƒCƒ‰
-  * ƒIƒŠƒWƒiƒ‹‚ÌGnuCOBOL‚Í[‚±‚¿‚ç](https://sourceforge.net/projects/gnucobol/)
+  * COBOLè¨€èªžã‚³ãƒ³ãƒ‘ã‚¤ãƒ©
+  * ã‚ªãƒªã‚¸ãƒŠãƒ«ã®GnuCOBOLã¯[ã“ã¡ã‚‰](https://sourceforge.net/projects/gnucobol/)
 * [esqlOC](https://sourceforge.net/p/gnucobol/contrib/HEAD/tree/trunk/esql/) in [GnuCOBOL Contributions](https://sourceforge.net/p/gnucobol/contrib/HEAD/tree/trunk/)
-  * ODBCÚ‘±‚ðŽg—p‚·‚éSQLƒvƒŠƒvƒƒZƒbƒT
+  * ODBCæŽ¥ç¶šã‚’ä½¿ç”¨ã™ã‚‹SQLãƒ—ãƒªãƒ—ãƒ­ã‚»ãƒƒã‚µ
 * [GCSORT](https://sourceforge.net/p/gnucobol/contrib/HEAD/tree/trunk/tools/GCSORT/) in [GnuCOBOL Contributions](https://sourceforge.net/p/gnucobol/contrib/HEAD/tree/trunk/)
-  * MFSORT‚Ì‚æ‚¤‚Èƒ\[ƒgƒ†[ƒeƒBƒŠƒeƒB
+  * MFSORTã®ã‚ˆã†ãªã‚½ãƒ¼ãƒˆãƒ¦ãƒ¼ãƒ†ã‚£ãƒªãƒ†ã‚£
 
-## •K—v‚ÈƒAƒvƒŠ
+## å¿…è¦ãªã‚¢ãƒ—ãƒª
 
 * [Visual Studio Code](https://code.visualstudio.com/)
-  * [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) Šg’£‚àƒCƒ“ƒXƒg[ƒ‹‚µ‚Ä‚­‚¾‚³‚¢B
+  * [Dev Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) æ‹¡å¼µã‚‚ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¦ãã ã•ã„ã€‚
 * Docker
-  * Windows/Mac‚ð‚²—˜—p‚Ì•û‚ÍA[Docker Desktop](https://www.docker.com/products/docker-desktop/)‚ðƒCƒ“ƒXƒg[ƒ‹‚µ‚Ä‚­‚¾‚³‚¢B
+  * Windows/Macã‚’ã”åˆ©ç”¨ã®æ–¹ã¯ã€[Docker Desktop](https://www.docker.com/products/docker-desktop/)ã‚’ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¦ãã ã•ã„ã€‚
 * Git
-  * Windows‚ð‚²—˜—p‚Ì•û‚ÍA[Git for Windows](https://gitforwindows.org/)‚ðƒCƒ“ƒXƒg[ƒ‹‚µ‚Ä‚­‚¾‚³‚¢B
+  * Windowsã‚’ã”åˆ©ç”¨ã®æ–¹ã¯ã€[Git for Windows](https://gitforwindows.org/)ã‚’ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¦ãã ã•ã„ã€‚
 
-## Žg‚¢•û
+## ä½¿ã„æ–¹
 
-1. –{ƒŠƒ|ƒWƒgƒŠ‚ð“K“–‚ÈƒtƒHƒ‹ƒ_‚ÉƒNƒ[ƒ“‚µ‚Ü‚·B
-2. VSCode‚ðŠJ‚«ƒNƒ[ƒ“‚µ‚½ƒtƒHƒ‹ƒ_‚ðŠJ‚«‚Ü‚·B
-3. ƒRƒ}ƒ“ƒhƒpƒŒƒbƒg(Ctrl + Shift + p)‚©‚çuŠJ”­ƒRƒ“ƒeƒi\: ƒRƒ“ƒeƒi\‚ÅÄ“xŠJ‚­v‚ð‘I‘ð
-4. ƒGƒNƒXƒvƒ[ƒ‰‚Éƒtƒ@ƒCƒ‹‚ª•\Ž¦‚³‚êA‘€ì‚Å‚«‚é‚æ‚¤‚É‚È‚Á‚½‚ç€”õŠ®—¹‚Å‚·B
+1. æœ¬ãƒªãƒã‚¸ãƒˆãƒªã‚’é©å½“ãªãƒ•ã‚©ãƒ«ãƒ€ã«ã‚¯ãƒ­ãƒ¼ãƒ³ã—ã¾ã™ã€‚
+2. VSCodeã‚’é–‹ãã‚¯ãƒ­ãƒ¼ãƒ³ã—ãŸãƒ•ã‚©ãƒ«ãƒ€ã‚’é–‹ãã¾ã™ã€‚
+3. ã‚³ãƒžãƒ³ãƒ‰ãƒ‘ãƒ¬ãƒƒãƒˆ(Ctrl + Shift + p)ã‹ã‚‰ã€Œé–‹ç™ºã‚³ãƒ³ãƒ†ãƒŠâ€•: ã‚³ãƒ³ãƒ†ãƒŠâ€•ã§å†åº¦é–‹ãã€ã‚’é¸æŠž
+4. ã‚¨ã‚¯ã‚¹ãƒ—ãƒ­ãƒ¼ãƒ©ã«ãƒ•ã‚¡ã‚¤ãƒ«ãŒè¡¨ç¤ºã•ã‚Œã€æ“ä½œã§ãã‚‹ã‚ˆã†ã«ãªã£ãŸã‚‰æº–å‚™å®Œäº†ã§ã™ã€‚
 
-## ƒ‰ƒCƒZƒ“ƒX
+## ãƒ©ã‚¤ã‚»ãƒ³ã‚¹
 
-- GnuCOBOLAesqlOC‚ÍAGPLv2‚Åƒ‰ƒCƒZƒ“ƒX‚³‚ê‚Ä‚¢‚Ü‚·B(‚»‚ê‚¼‚êAREADME.txt‚âƒ\[ƒXƒR[ƒh‚ÌƒRƒƒ“ƒg‚ðŽQÆ‚µ‚Ä‚­‚¾‚³‚¢B)
-- GCSORT‚ÍAGPL‚Åƒ‰ƒCƒZƒ“ƒX‚³‚ê‚Ä‚¢‚Ü‚·B(COPYINGƒtƒ@ƒCƒ‹‚ðŽQÆ‚µ‚Ä‚­‚¾‚³‚¢B)
-- ‚»‚Ì‘¼AÝ’èƒtƒ@ƒCƒ‹AŠÂ‹«\’zƒXƒNƒŠƒvƒg(.devcontaienrƒtƒHƒ‹ƒ_“à)AƒTƒ“ƒvƒ‹ƒvƒƒOƒ‰ƒ€(sampleƒtƒHƒ‹ƒ_“à)‚È‚Ç‚ÍMITƒ‰ƒCƒZƒ“ƒX‚Æ‚µ‚Ü‚·B
+- GnuCOBOLã€esqlOCã¯ã€GPLv2ã§ãƒ©ã‚¤ã‚»ãƒ³ã‚¹ã•ã‚Œã¦ã„ã¾ã™ã€‚(ãã‚Œãžã‚Œã€README.txtã‚„ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰ã®ã‚³ãƒ¡ãƒ³ãƒˆã‚’å‚ç…§ã—ã¦ãã ã•ã„ã€‚)
+- GCSORTã¯ã€GPLã§ãƒ©ã‚¤ã‚»ãƒ³ã‚¹ã•ã‚Œã¦ã„ã¾ã™ã€‚(COPYINGãƒ•ã‚¡ã‚¤ãƒ«ã‚’å‚ç…§ã—ã¦ãã ã•ã„ã€‚)
+- ãã®ä»–ã€è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã€ç’°å¢ƒæ§‹ç¯‰ã‚¹ã‚¯ãƒªãƒ—ãƒˆ(.devcontaienrãƒ•ã‚©ãƒ«ãƒ€å†…)ã€ã‚µãƒ³ãƒ—ãƒ«ãƒ—ãƒ­ã‚°ãƒ©ãƒ (sampleãƒ•ã‚©ãƒ«ãƒ€å†…)ãªã©ã¯MITãƒ©ã‚¤ã‚»ãƒ³ã‚¹ã¨ã—ã¾ã™ã€‚

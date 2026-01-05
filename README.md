@@ -4,8 +4,9 @@ DevContainerを利用したCOBOL言語実習環境のテンプレートリポジトリです。
 
 ## 使用できるツール
 
-* [GnuCOBOL 3.2](https://sourceforge.net/projects/gnucobol/)
+* [GnuCOBOL 3.2 OSSCONS Patch.2](https://github.com/opensourcecobol/gnucobol-osscons-patch.git)
   * COBOL言語コンパイラ
+  * オリジナルのGnuCOBOLは[こちら](https://sourceforge.net/projects/gnucobol/)
 * [esqlOC](https://sourceforge.net/p/gnucobol/contrib/HEAD/tree/trunk/esql/) in [GnuCOBOL Contributions](https://sourceforge.net/p/gnucobol/contrib/HEAD/tree/trunk/)
   * ODBC接続を使用するSQLプリプロセッサ
 * [GCSORT](https://sourceforge.net/p/gnucobol/contrib/HEAD/tree/trunk/tools/GCSORT/) in [GnuCOBOL Contributions](https://sourceforge.net/p/gnucobol/contrib/HEAD/tree/trunk/)

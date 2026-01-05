@@ -1,11 +1,11 @@
 #!/bin/sh
 ##########################################################################
-# UNIX-COBOL 実習環境構築スクリプト for devcontainer
+# UNIX-COBOL 実習環�?構築スクリプト for devcontainer
 # Copyright (C) 2022-2023 SystemGiken Co.Ltd,
 #
-# GnuCOBOL、各種プリプロセッサ、ソートツールをインストールします。
+# GnuCOBOL、各種プリプロセ�?サ、ソートツールをインスト�?�ルします�?
 #
-# 動作環境:
+# 動作環�?:
 #   Ubuntu 22.04
 #   Ubuntu 24.04
 ##########################################################################
@@ -15,13 +15,12 @@ SCRIPT_DIR=$(cd $(dirname $0); pwd)
 BUILD_DIR=$(mktemp -d)
 BUILD_LOG_FILE=${SCRIPT_DIR}/build.log
 #
-GNUCOBOL_VER="3.2"
-GNUCOBOL_SRC_PKG="gnucobol-${GNUCOBOL_VER}.tar.gz"
-OCESQLOC_SRC_PKG="Open-COBOL-ESQL-1.3.tar.gz"
+GNUCOBOL_VER="3.2 OSSCONS Patch.2"
+GNUCOBOL_SRC_PKG="gnucobol.tar.gz"
 GCSORT_SRC_PKG="gcsort.tar.gz"
 ESQLOC_SRC_PKG="esql.tar.gz"
 #
-GNUCOBOL_SRC_URL="https://jaist.dl.sourceforge.net/project/gnucobol/gnucobol/${GNUCOBOL_VER}/${GNUCOBOL_SRC_PKG}"
+GNUCOBOL_SRC_URL="https://github.com/opensourcecobol/gnucobol-osscons-patch/archive/refs/heads/develop.tar.gz"
 #
 
 cd "${SCRIPT_DIR}"
@@ -33,18 +32,19 @@ echo "Generate ja_JP.SJIS locale ... "
     locale-gen
 }
 
-# 必要なパッケージをインストールする
+# �?要なパッケージをインスト�?�ルする
 echo "Installing required packages ..."
 {
     apt-get -y update && \
     apt-get -y install curl gcc g++ bison flex make autoconf \
                        libgmp-dev libdb-dev libpq-dev libxml2-dev \
-                       libjson-c-dev unixodbc-dev odbc-postgresql
+                       libjson-c-dev unixodbc-dev odbc-postgresql \
+                       texinfo
 } >>"${BUILD_LOG_FILE}" 2>&1
 
 cd "${BUILD_DIR}"
 
-## GnuCobol をビルドしてインスト�?�ル
+## GnuCobol をビルドしてインスト�??��ル
 if [ ! -f "${SCRIPT_DIR}/${GNUCOBOL_SRC_PKG}" ]; then
     echo "Downloading GnuCOBOL Source package ..."
     curl -sSL -o "${BUILD_DIR}/${GNUCOBOL_SRC_PKG}" "${GNUCOBOL_SRC_URL}"
@@ -57,6 +57,7 @@ mkdir gnucobol
 tar xf "${BUILD_DIR}/${GNUCOBOL_SRC_PKG}" --strip-components 1 -C gnucobol
 (
     cd gnucobol
+    sh ./autogen.sh
     ./configure
     make -j
     make install
@@ -89,7 +90,7 @@ mkdir esql
 tar xzf "${BUILD_DIR}/${ESQLOC_SRC_PKG}" --strip-components 1 -C esql
 (
     cd esql
-    ./autogen.sh
+    sh ./autogen.sh
     ./configure
     make -j
     make install

@@ -30,8 +30,7 @@
 
        WORKING-STORAGE SECTION.
        01  MSG.
-         03  GREETING PIC X(12) VALUE 'こんにちは,'.
-         03  YOURNAME PIC X(20) VALUE SPACE.
+           COPY SAMPLECOPY.
 
       ******************************************************************
       * プログラムの開始地点
@@ -48,7 +47,7 @@
            EXIT.
 
        DISPMEG SECTION.
-           DISPLAY MSG.
+           DISPLAY GREETING.
            EXIT.
 
        OUTPUT-FILE SECTION.

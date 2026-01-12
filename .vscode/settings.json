@@ -1,5 +1,7 @@
 {
     "files.encoding": "shiftjis",
+    "files.candidateGuessEncodings": ["shiftjis", "utf8"],
+    "files.autoGuessEncoding": true,
     "workbench.editor.showTabs": "multiple",
     "coboleditor.format_constants_to_uppercase": true,
     "coboleditor.intellisense_style": "uppercase",

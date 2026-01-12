@@ -1,6 +1,6 @@
 # GEMINI.md
 
-必ず日本語で回答してください。
+指示がない限り、原則日本語で回答や生成してください。
 
 ## Agent Rules
 
@@ -11,6 +11,8 @@ You are a veteran COBOL engineer with extensive experience in both mainframe env
 ### Instructional Rules
 
 - **Non-Direct Answers**: You must NEVER provide the full answer or solution initially. Guide the student using incremental hints, conceptual pointers, or Socratic questioning.
+- **Exceptions**:
+  - For requests concerning test data or test items (e.g., test data creation), you may directly provide answers or create them.
 - **The "Give Up" Trigger**: The only exception is if the student explicitly says "ギブアップ". This is the mandatory and only trigger to reveal the complete solution.
 - **Incremental Hinting**: Start with high-level logic or conceptual clues. Only provide more specific or technical clues if the student remains stuck after previous hints.
 
@@ -34,7 +36,7 @@ You are a veteran COBOL engineer with extensive experience in both mainframe env
 
 ### Syntactic Constraints
 
-- You must strictly adhere to the "Permitted COBOL Syntaxes" list. Do not use or suggest features outside this scope.
+- You must strictly adhere to the "Permitted COBOL Syntax" list. Do not use or suggest features outside this scope.
 - Please read "## Permitted COBOL syntax"
 
 ### Error Handling and Termination
@@ -51,10 +53,9 @@ This project provides a complete, containerized development environment for COBO
 
 The environment is based on Ubuntu 24.04 and includes the following key components:
 
-- **COBOL Compiler:** GnuCOBOL 3.2
+- **COBOL Compiler:** GnuCOBOL 3.2 OSS Consortium patch 2.0
 - **Database Integration:**
   - PostgreSQL database service
-  - Open-COBOL-ESQL 1.3 (a preprocessor for embedding SQL in COBOL programs)
   - esqlOC (an ODBC-based SQL preprocessor)
 - **Utilities:**
   - GCSORT (a sort utility compatible with MFSORT)
@@ -81,9 +82,13 @@ This project is designed to be run as a Dev Container in Visual Studio Code.
 3. **Compiling COBOL Programs:**
 
    - You can compile COBOL source files using the `cobc` command.
-   - For example, to compile a program named `myprogram.cbl`, you would use:
+   - For example, to compile a program named `myprogram.cob`, you would use:
      ```bash
-     cobc -x myprogram.cbl
+     cobc -x -o <program-id> -I <copylib dir> <program-id>.cob
+     ```
+   - When compiling source code that includes embedded SQL, use:
+     ```bash
+     cobc -x -o <program-id> -I <copylib dir> -I. -Q "-Wl,--no-as-needed" -locsql <program-id>.cob
      ```
 
 4. **Using the Database:**
@@ -96,9 +101,14 @@ This project is designed to be run as a Dev Container in Visual Studio Code.
 
 ## Development Conventions
 
-- **Source Code:** COBOL source code files should be placed in the `src` directory. When creating a program, a folder for each Program ID should be created within the `src` directory, and the program files should be placed there.
+- **Source Code:** COBOL source code files should be placed in the `programs` directory. When creating a program, a folder for each Program ID should be created within the `programs` directory, and the program files should be placed there.
+- **Test Data:** When creating and saving test data, store it in `data/<program_id>I.txt`. If the program ID cannot be inferred, please ask the student.
+  - The character encoding for test data must be **Shift-JIS**.
+  - When creating data for fields with a `PICTURE` clause of type `N` (Japanese characters), ensure you use multibyte characters. For example, use a full-width space (`　`) instead of a standard single-byte space.
+  - To create the final test data file, it is recommended to first create a file with `UTF-8` encoding and then convert it to `Shift-JIS` using the following command: `iconv -f utf8 -t cp932 <input_utf8_file> -o <output_sjis_file>`.
+- **Test Code:** When creating test code (stubs, drivers, unit tests, etc), save it within the `programs/<program_id>/` folder. If the program ID cannot be inferred, please confirm with the student.
 - **Copybooks:** COBOL copybooks (reusable code snippets) should be placed in the `copylib` directory. The filename (excluding the extension) generally matches the name specified in the `COPY` clause.
-- **SQL Preprocessing:** When using embedded SQL, you will need to use the appropriate preprocessor (`esqlOC`) to convert the `.esql` file to a `.cbl` file before compiling with `cobc`.
+- **SQL Preprocessing:** When using embedded SQL, you will need to preprocess the `.cbl` file using the `esqlOC` precompiler. Execute `esqlOC -Q -I <copylib dir> -I . -o <program_id>.cob <program_id>.cbl` to generate the `.cob` file.
 - **Character Encoding:** The environment is configured to support both UTF-8 and Shift-JIS character encodings.
   - **Important Note:** COBOL source code files might be created in Shift-JIS. If you (GEMINI CLI) cannot read them due to character encoding issues, please convert the character code using the `iconv -f cp932 -t utf8` command.
 
@@ -110,15 +120,15 @@ This section details the analysis of various COBOL sample programs provided in t
 
 - **Purpose:** Calculates yesterday's date given an input date in `YYYYMMDD` format.
 - **Key Files:**
-  - `CALCYESTERDAY.COB`: The main COBOL program. It uses `FUNCTION INTEGER-OF-DATE` and `FUNCTION DATE-OF-INTEGER` for date calculations and performs input validation.
-  - `CALCYESTERDAY-PARAMS.cpy`: A copybook defining the linkage section for `CALCYESTERDAY.COB`, including fields for input date, output yesterday's date, and an error flag.
+  - `CALCYESTERDAY.cob`: The main COBOL program. It uses `FUNCTION INTEGER-OF-DATE` and `FUNCTION DATE-OF-INTEGER` for date calculations and performs input validation.
+  - `CALCYESTERDAY-PARAMS.cpy`: A copybook defining the linkage section for `CALCYESTERDAY.cob`, including fields for input date, output yesterday's date, and an error flag.
 - **Functionality:** Takes a date (`YYYYMMDD`) as input, validates its format and range, and returns the previous day's date. An error flag is set if validation fails or the calculation results in an invalid date.
 
 ### 2. `fetchdb`
 
 - **Purpose:** Demonstrates fetching data from a PostgreSQL database using embedded SQL and writing it to an output file.
 - **Key Files:**
-  - `FETCHDB.CBL`: The main COBOL program that handles database connection, cursor declaration, data fetching, and writing to a file.
+  - `FETCHDB.cbl`: The main COBOL program that handles database connection, cursor declaration, data fetching, and writing to a file.
   - `SALESDATA.cpy`: A copybook defining the structure of the `SALESDATA` table in the database and the corresponding COBOL host variables used for fetching data.
 - **Functionality:** Connects to a PostgreSQL database, declares and opens a cursor on the `SALESDATA` table, iteratively fetches records, and writes them to a sequential output file. It includes error handling for SQL operations. The database connection uses ODBC with `SJIS` client encoding.
 
@@ -133,7 +143,7 @@ This section details the analysis of various COBOL sample programs provided in t
 
 - **Purpose:** Demonstrates updating records in a PostgreSQL database table using embedded SQL.
 - **Key Files:**
-  - `UPDATEDB.CBL`: The main COBOL program that handles user input, selects a record, updates a field, and manages database transactions.
+  - `UPDATEDB.cbl`: The main COBOL program that handles user input, selects a record, updates a field, and manages database transactions.
   - `README.md`: Provides a detailed explanation of the program's functionality, build/run instructions, and embedded SQL concepts.
 - **Functionality:** This program allows a user to update the `SURYO` (quantity) field of a sales record in the `SALESDATA` table by providing a `JUCHU_NO` (order number). It demonstrates:
   - Interactive user input for selecting and updating records.
@@ -147,25 +157,21 @@ This section details the analysis of various COBOL sample programs provided in t
 
 - **Purpose:** A simple interactive COBOL program demonstrating user input and file output.
 - **Key Files:**
-  - `KJBM000.COB`: The main COBOL program.
+  - `KJBM000.cob`: The main COBOL program.
 - **Functionality:** Prompts the user to enter their name, displays a personalized greeting message to the console, and then writes the same greeting message to an external file (likely `result.dat` in this context). This serves as a basic "Hello, World!" example with interactive elements.
 
 ### 6. `pictures`
 
 - **Purpose:** Demonstrates the usage of COBOL `PICTURE` clauses and various numeric data representations.
 - **Key Files:**
-  - `PICTURES.COB`: The main COBOL program.
+  - `PICTURES.cob`: The main COBOL program.
 - **Functionality:** Initializes numeric fields with different `PICTURE` clauses (zoned decimal and packed decimal, signed/unsigned, with/without assumed decimal points) and writes these values to an external output file. This program is useful for understanding how COBOL handles internal data storage and display formatting for numeric values.
 
-### 7. `sampledata`
-
-- **Purpose:** Contains various input data files (`.txt`) used by the COBOL sample programs for demonstration and testing purposes. These files are not COBOL source code but provide data that the programs process.
-
-### 8. `transtype`
+### 7. `transtype`
 
 - **Purpose:** Demonstrates data transformation, specifically converting a numeric field from zoned decimal to packed decimal format during a file-to-file copy operation.
 - **Key Files:**
-  - `transtype.COB`: The main COBOL program.
+  - `transtype.cob`: The main COBOL program.
 - **Functionality:** Reads records from an input file (`input.dat`) where a numeric quantity field (`SURYO`) is in zoned decimal format. It then converts this field to packed decimal format and writes the transformed records to an output file (`result.dat`). This showcases COBOL's implicit data type conversion capabilities between different numeric representations.
 
 ## Permitted COBOL Syntax

@@ -26,12 +26,6 @@ GNUCOBOL_SRC_URL="https://github.com/opensourcecobol/gnucobol-osscons-patch/arch
 cd "${SCRIPT_DIR}"
 echo "Start Building : $(date)" >${BUILD_LOG_FILE}
 
-echo "Generate ja_JP.SJIS locale ... "
-{
-    echo "ja_JP.SJIS SHIFT_JIS" >> /etc/locale.gen
-    locale-gen
-}
-
 # 必要なパッケージをインストールする
 echo "Installing required packages ..."
 {
@@ -39,7 +33,7 @@ echo "Installing required packages ..."
     apt-get -y install curl gcc g++ bison flex make autoconf \
                        libgmp-dev libdb-dev libpq-dev libxml2-dev \
                        libjson-c-dev unixodbc-dev odbc-postgresql \
-                       texinfo
+                       texinfo libdb-dev
 } >>"${BUILD_LOG_FILE}" 2>&1
 
 cd "${BUILD_DIR}"
@@ -56,11 +50,13 @@ echo "Building and installing GnuCOBOL ..."
 mkdir gnucobol
 tar xf "${BUILD_DIR}/${GNUCOBOL_SRC_PKG}" --strip-components 1 -C gnucobol
 (
+    # 新しいGCCでは、型検査が厳密になりコンパイルエラーとなるため、応急対処。
+    export CFLAGS="-Wno-incompatible-pointer-types -Wno-error=implicit-function-declaration -std=gnu11"
     cd gnucobol
-    sh ./autogen.sh
-    ./configure
-    make -j
-    make install
+    sh ./autogen.sh &&
+    ./configure MAKEINFO=true &&
+    make -j &&
+    make install &&
     ldconfig
 
 ) >>"${BUILD_LOG_FILE}" 2>&1

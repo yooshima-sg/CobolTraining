@@ -1,13 +1,16 @@
-FROM mcr.microsoft.com/devcontainers/base:ubuntu-24.04
+FROM mcr.microsoft.com/devcontainers/base:ubuntu26.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update \
-     && apt-get -y install --no-install-recommends postgresql-client language-pack-ja
+     && apt-get -y install --no-install-recommends \
+                           bubblewrap postgresql-client language-pack-ja \
+                           7zip-standalone
 
-WORKDIR /tmp
+WORKDIR /tmp/build
 COPY envbuilder ./envbuilder
 
 RUN bash envbuilder/builder/build.sh
 
-RUN rm -rf envbuilder
+WORKDIR /tmp
+RUN rm -rf build

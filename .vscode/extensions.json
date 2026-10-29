@@ -1,5 +1,6 @@
 {
     "recommendations": [
-        "bitlang.cobol"
+        "bitlang.cobol",
+        "bierner.markdown-mermaid"
     ]
 }

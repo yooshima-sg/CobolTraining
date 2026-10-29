@@ -12,5 +12,8 @@ COPY envbuilder ./envbuilder
 
 RUN bash envbuilder/builder/build.sh
 
+# ODBCデータソース(DSN)の定義
+COPY odbc.ini /etc/odbc.ini
+
 WORKDIR /tmp
 RUN rm -rf build
